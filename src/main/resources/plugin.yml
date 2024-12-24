@@ -1,0 +1,29 @@
+name: DgMCPlugin
+main: top.DrakGod.DgMCPlugin.Main
+version: Beta1.0
+api-version: 1.19
+description: 这是一个专门为DgMC打造的插件
+authors: [Drakgod]
+website: https://dgmc.drakgod.top
+
+commands:
+  dgmc:
+    usage: /dgmc <子指令> [参数]
+    aliases: [dgmc]
+    description: DgMC插件主指令
+    permission: dgmc.commands.dgmc
+
+permissions:
+  dgmc.*:
+    description: 拥有DgMC插件的所有权限
+    default: op
+    children:
+      dgmc.commands.*: true
+  dgmc.commands.*:
+    description: 拥有DgMC插件的所有命令权限
+    default: true
+    children:
+      dgmc.commands.dgmc: true
+  dgmc.commands.dgmc:
+    description: 拥有DgMC插件的/dgmc命令权限
+    default: true
