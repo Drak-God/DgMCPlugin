@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/badge/服务器地址-game.drakgod.top-yellow">
   <img src="https://img.shields.io/badge/server-leaves_1.19.2-brightgreen"></br>
   <img src="https://img.shields.io/badge/QQ群-941070901-cyan">
-  <img src="https://img.shields.io/badge/mc-ViaVersion支持版本(默认1.92.2)-green">
+  <img src="https://img.shields.io/badge/mc-ViaVersion支持版本(默认1.19.2)-green">
   <img src="https://img.shields.io/badge/游玩提示-需加入QQ群发送验证码游玩-red">
 
 # 简介
