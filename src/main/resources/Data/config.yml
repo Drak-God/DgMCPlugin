@@ -1,0 +1,8 @@
+#绑定踢出信息
+BindKickMsg: |-
+  §a你的§e验证码 : §b<code> §a绑定后可§e加入游戏
+  §7请看公告§a注册ID,§c然后§7在QQ群907858442内发送:§a绑定 <code>
+#QQ机器人IP配置
+QQBot:
+  ip: server.tonyxx.cn
+  port: 64827

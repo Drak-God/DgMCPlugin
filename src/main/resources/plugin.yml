@@ -12,6 +12,16 @@ commands:
     aliases: [dgmc]
     description: DgMC插件主指令
     permission: dgmc.commands.dgmc
+  help:
+    usage: /help
+    aliases: [dghelp]
+    description: 查看帮助信息
+    permission: dgmc.commands.help
+  idbind:
+    usage: /idbind <玩家>
+    aliases: [bind]
+    description: 查看玩家绑定ID
+    permission: dgmc.commands.idbind
 
 permissions:
   dgmc.*:
@@ -24,6 +34,13 @@ permissions:
     default: true
     children:
       dgmc.commands.dgmc: true
+      dgmc.commands.idbind: true
   dgmc.commands.dgmc:
     description: 拥有DgMC插件的/dgmc命令权限
+    default: true
+  dgmc.commands.help:
+    description: 拥有DgMC插件的/help命令权限
+    default: true
+  dgmc.commands.idbind:
+    description: 拥有DgMC插件的/idbind命令权限
     default: true
