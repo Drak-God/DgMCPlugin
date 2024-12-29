@@ -35,6 +35,13 @@
             <artifactId>spigot-api</artifactId>
             <version>1.19.2-R0.1-20220810.201214-1</version>
         </dependency>
+        <dependency>
+            <groupId>top.leavesmc.leaves</groupId>
+            <artifactId>leaves</artifactId>
+            <version>1.19.2</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/libs/leaves-1.19.2.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <build>
