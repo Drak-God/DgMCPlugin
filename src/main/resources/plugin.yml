@@ -22,36 +22,6 @@ commands:
     aliases: [bind]
     description: 查看玩家绑定ID
     permission: dgmc.commands.idbind
-  dgmc1:
-    usage: /dgmc <子指令> [参数]
-    aliases: [dgmc]
-    description: DgMC插件主指令
-    permission: dgmc.commands.dgmc
-  help1:
-    usage: /help [页面]
-    aliases: [dghelp]
-    description: 查看帮助信息
-    permission: dgmc.commands.help
-  idbind1:
-    usage: /idbind <玩家>
-    aliases: [bind]
-    description: 查看玩家绑定ID
-    permission: dgmc.commands.idbind
-  dgmc2:
-    usage: /dgmc <子指令> [参数]
-    aliases: [dgmc]
-    description: DgMC插件主指令
-    permission: dgmc.commands.dgmc
-  help2:
-    usage: /help [页面]
-    aliases: [dghelp]
-    description: 查看帮助信息
-    permission: dgmc.commands.help
-  idbind2:
-    usage: /idbind <玩家>
-    aliases: [bind]
-    description: 查看玩家绑定ID
-    permission: dgmc.commands.idbind
 
 permissions:
   dgmc.*:
