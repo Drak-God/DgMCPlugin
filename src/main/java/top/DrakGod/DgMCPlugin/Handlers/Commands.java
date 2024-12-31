@@ -136,7 +136,7 @@ public class Commands implements CommandExecutor, Global {
                 return true;
             }
             // 发送帮助页面的标题
-            Sender.sendMessage("§e------ ======= §1Dg§4MC§6Plugin§b帮助 §e======= ------");
+            Sender.sendMessage("§e------ ======= §1Dg§4MC§bPlugin§6帮助 §e======= ------");
             // 发送帮助页面的说明
             Sender.sendMessage("§e====== ------ §6<>为必填 []为选填 §e------ ======");
             // 遍历当前帮助页面的命令
