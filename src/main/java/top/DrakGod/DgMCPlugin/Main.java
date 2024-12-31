@@ -71,7 +71,7 @@ public class Main extends JavaPlugin implements Global {
         // 注册监听器
         PluginManager.registerEvents(Class_Listeners, this);
         // 记录日志信息
-        Plugin_Log("INFO", "§1Dg§4MC§6专属插件§a已启用!");
+        Plugin_Log("INFO", "§1Dg§4MC§b专属插件§a已启用!");
     }
 
     /**
@@ -80,7 +80,7 @@ public class Main extends JavaPlugin implements Global {
     @Override
     public void onDisable() {
         // 记录日志信息
-        Plugin_Log("INFO", "§1Dg§4MC§6专属插件§4已禁用!");
+        Plugin_Log("INFO", "§1Dg§4MC§b专属插件§4已禁用!");
     }
 
     /**

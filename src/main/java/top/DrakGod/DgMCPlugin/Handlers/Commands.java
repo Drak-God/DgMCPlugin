@@ -144,7 +144,9 @@ public class Commands implements CommandExecutor, Global {
                 // 获取命令对象
                 Command HelpCommand = Commands.get(Name);
                 // 发送命令的使用说明和描述
-                Sender.sendMessage("§6" + HelpCommand.getUsage() + " §e-§6 " + HelpCommand.getDescription());
+                TextComponent Msg = new TextComponent("§6" + HelpCommand.getUsage() + " §e-§6 " + HelpCommand.getDescription());
+                Msg.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/" + Name));
+                Sender.spigot().sendMessage(Msg);
             }
             // 创建一个ComponentBuilder对象，用于构建点击事件
             ComponentBuilder Msg = new ComponentBuilder();

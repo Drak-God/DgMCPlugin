@@ -91,7 +91,7 @@ public interface Global {
         } else if (Mode.equalsIgnoreCase("ERROR")) {
             Msg = "§c" + Msg;
         }
-        Console.sendMessage("[DgMCPlugin] " + Msg);
+        Console.sendMessage("§6[§1Dg§4MC§bPlugin§6] " + Msg);
     }
 
     /**
