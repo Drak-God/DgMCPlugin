@@ -82,6 +82,25 @@ public class IDBinds implements Global {
     }
 
     /**
+     * 根据玩家名称获取其绑定的ID
+     *
+     * @param Name 玩家名称
+     * @return 绑定的ID，如果未找到则返回null
+     */
+    public final String Get_IDBind(String Name) {
+        // 调用Get_IDBinds方法获取最新的ID绑定数据
+        Get_IDBinds();
+        // 检查ID绑定数据中是否包含给定的玩家名称
+        if (IDBinds_Data.containsKey(Name)) {
+            // 如果包含，则返回该玩家名称对应的ID
+            return IDBinds_Data.get(Name);
+        } else {
+            // 如果不包含，则返回null
+            return null;
+        }
+    }
+
+    /**
      * 获取玩家绑定的ID信息
      *
      * @param Event 玩家登录事件
@@ -94,6 +113,7 @@ public class IDBinds implements Global {
         Get_IDBinds();
         // 如果玩家已绑定ID，则返回绑定信息
         if (IDBinds_Data.containsKey(Player.getName())) {
+            // 如果玩家已绑定ID，则返回绑定信息
             return "§a你已绑定ID: " + IDBinds_Data.get(Player.getName());
         } else {
             // 如果玩家未绑定ID，则返回添加绑定的提示信息

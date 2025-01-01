@@ -10,6 +10,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -187,6 +188,60 @@ public class Commands implements CommandExecutor, Global {
             Sender.spigot().sendMessage(Msg.create());
             return true;
         }
+        // 如果命令名称为"idbind"
+        if (Command_Name.equalsIgnoreCase("idbind")) {
+            // 声明一个字符串变量Name，用于存储玩家名称
+            String Name;
+            // 根据参数长度进行不同的处理
+            switch (Args.length) {
+                // 如果参数长度为0
+                case 0 -> {
+                    // 如果命令发送者是玩家
+                    if (Sender instanceof Player Player) {
+                        // 获取玩家名称
+                        Name = Player.getName();
+                    } else {
+                        // 如果命令发送者不是玩家，发送错误消息
+                        Sender.sendMessage("§c参数过少");
+                        // 命令执行失败，返回true
+                        return true;
+                    }
+                }
+                // 如果参数长度为1
+                case 1 -> {
+                    // 获取第一个参数作为玩家名称
+                    Name = Args[0];
+                    // 如果玩家不存在，发送错误消息
+                    if (!Server.getOfflinePlayer(Name).hasPlayedBefore()) {
+                        Sender.sendMessage("§c玩家不存在");
+                        // 命令执行失败，返回true
+                        return true;
+                    }
+                }
+                // 如果参数长度大于1
+                default -> {
+                    // 发送错误消息
+                    Sender.sendMessage("§c参数过多");
+                    // 命令执行失败，返回true
+                    return true;
+                }
+            }
+
+            // 获取玩家的ID绑定
+            String ID = Get_Main().Class_IDBinds.Get_IDBind(Name);
+            // 如果ID绑定不存在
+            if (ID == null) {
+                // 发送消息，提示玩家未绑定ID
+                Sender.sendMessage("§6玩家 " + Name + " §c未绑定ID");
+            } else {
+                // 发送消息，提示玩家已绑定ID
+                Sender.sendMessage("§6玩家 " + Name + " §a已绑定ID:" + ID);
+            }
+
+            // 命令执行成功，返回true
+            return true;
+        }
+        // 命令执行失败，返回false
         return false;
     }
 }
