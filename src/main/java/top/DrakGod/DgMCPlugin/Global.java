@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.Random;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -30,6 +31,9 @@ public interface Global {
     public Logger Plugin_Logger = Bukkit.getLogger();
     // 获取控制台命令发送者
     public CommandSender Console = Server.getConsoleSender();
+
+    // 生成随机类
+    public Random Random = new Random();
 
     /**
      * 获取主插件实例
