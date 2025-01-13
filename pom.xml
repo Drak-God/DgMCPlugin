@@ -36,18 +36,25 @@
             <version>1.19.2-R0.1-20220810.201214-1</version>
         </dependency>
         <dependency>
-            <groupId>top.leavesmc.leaves</groupId>
+            <groupId>top.leavesmc</groupId>
             <artifactId>leaves</artifactId>
             <version>1.19.2</version>
             <scope>system</scope>
             <systemPath>${basedir}/libs/leaves-1.19.2.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>com.Zrips.CMI</groupId>
+            <groupId>com.Zrips</groupId>
             <artifactId>CMI</artifactId>
             <version>9.5.0.2</version>
             <scope>system</scope>
             <systemPath>${basedir}/libs/CMI-9.5.0.2.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>fr.xephi</groupId>
+            <artifactId>authme</artifactId>
+            <version>5.6.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/libs/AuthMe-5.6.0.jar</systemPath>
         </dependency>
     </dependencies>
 
