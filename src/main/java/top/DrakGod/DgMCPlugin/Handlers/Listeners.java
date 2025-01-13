@@ -9,7 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerPortalEvent;
 
 import com.Zrips.CMI.CMI;
 import com.Zrips.CMI.commands.list.rt;
@@ -61,7 +61,7 @@ public class Listeners implements Listener, Global {
      * @param Event 玩家移动事件
      */
     @EventHandler
-    public void onPlayerMove(PlayerMoveEvent Event) {
+    public void onPlayerPortal(PlayerPortalEvent Event) {
         // 获取触发事件的玩家对象
         Player Player = Event.getPlayer();
         // 获取玩家当前的位置信息

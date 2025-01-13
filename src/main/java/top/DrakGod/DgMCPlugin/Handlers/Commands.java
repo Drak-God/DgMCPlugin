@@ -125,7 +125,11 @@ public class Commands implements CommandExecutor, Global {
             // 如果参数长度为1
             if (Args.length == 1) {
                 // 获取要显示的页码
-                Page_Number = Integer.valueOf(Args[0]);
+                try {
+                    Page_Number = Integer.valueOf(Args[0]);
+                } catch (Exception e) {
+                    Page_Number = 0;
+                }
                 // 如果页码超出范围，则显示第一页
                 if (Page_Number > Help_Pages_Lenth || Page_Number < 1) {
                     Sender.sendMessage("§c页数错误,回退至第一页");
