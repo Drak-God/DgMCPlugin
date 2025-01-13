@@ -12,8 +12,10 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
 
 import com.Zrips.CMI.CMI;
+import com.Zrips.CMI.commands.list.kit;
 import com.Zrips.CMI.commands.list.rt;
 
+import fr.xephi.authme.events.RegisterEvent;
 import top.DrakGod.DgMCPlugin.Global;
 
 /**
@@ -101,6 +103,18 @@ public class Listeners implements Listener, Global {
             CMI CMI = Get_Plugin(CMI.class);
             new rt().perform(CMI, Player, new String[]{New_World_Name});
         } catch (Exception e) {
+        }
+    }
+
+    @EventHandler
+    public void onPlayerRegister(RegisterEvent Event) {
+        Player Player = Event.getPlayer();
+        if (Player.hasPermission("cmi.kit.进服礼包")) {
+            try {
+                CMI CMI = Get_Plugin(CMI.class);
+                new kit().perform(CMI, Player, new String[]{"进服礼包"});
+            } catch (Exception e) {
+            }
         }
     }
 }
