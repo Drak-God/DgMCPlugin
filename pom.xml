@@ -42,6 +42,13 @@
             <scope>system</scope>
             <systemPath>${basedir}/libs/leaves-1.19.2.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>com.Zrips.CMI</groupId>
+            <artifactId>CMI</artifactId>
+            <version>9.5.0.2</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/libs/CMI-9.5.0.2.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <build>

@@ -69,7 +69,7 @@ public class Main extends JavaPlugin implements Global {
         Class_IDBinds = new IDBinds();
 
         // 注册监听器
-        PluginManager.registerEvents(Class_Listeners, this);
+        Plugin_Manager.registerEvents(Class_Listeners, this);
         // 记录日志信息
         Plugin_Log("INFO", "§1Dg§4MC§b专属插件§a已启用!");
     }

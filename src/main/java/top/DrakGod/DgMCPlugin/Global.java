@@ -6,14 +6,16 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.util.Random;
 import java.util.logging.Logger;
+
+import javax.annotation.Nonnull;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * 全局接口，定义了一些常用的方法和常量
@@ -23,7 +25,7 @@ public interface Global {
     // 获取服务器实例
     public Server Server = Bukkit.getServer();
     // 获取插件管理器实例
-    public PluginManager PluginManager = Server.getPluginManager();
+    public PluginManager Plugin_Manager = Server.getPluginManager();
 
     // 获取服务器日志记录器
     public Logger Server_Logger = Server.getLogger();
@@ -32,8 +34,16 @@ public interface Global {
     // 获取控制台命令发送者
     public CommandSender Console = Server.getConsoleSender();
 
-    // 生成随机类
-    public Random Random = new Random();
+    /**
+     * 获取插件实例
+     *
+     * @param <T> 插件类的类型
+     * @param clazz 插件类的Class对象
+     * @return 返回插件实例
+     */
+    public default <T extends JavaPlugin> T Get_Plugin(@Nonnull Class<T> clazz) {
+        return Main.getPlugin(clazz);
+    }
 
     /**
      * 获取主插件实例
@@ -41,7 +51,7 @@ public interface Global {
      * @return 返回主插件实例
      */
     public default Main Get_Main() {
-        return Main.getPlugin(Main.class);
+        return Get_Plugin(Main.class);
     }
 
     /**
