@@ -79,6 +79,8 @@ public class Main extends JavaPlugin implements Global {
      */
     @Override
     public void onDisable() {
+        // 取消QQBot的定时任务
+        Class_IDBinds.Lookup_QQBot.cancel();
         // 记录日志信息
         Plugin_Log("INFO", "§1Dg§4MC§b专属插件§4已禁用!");
     }

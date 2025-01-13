@@ -106,13 +106,23 @@ public class Listeners implements Listener, Global {
         }
     }
 
+    /**
+     * 处理玩家注册事件的方法
+     *
+     * @param Event 玩家注册事件
+     */
     @EventHandler
     public void onPlayerRegister(RegisterEvent Event) {
+        // 获取触发事件的玩家对象
         Player Player = Event.getPlayer();
+        // 检查玩家是否具有"cmi.kit.进服礼包"权限
         if (Player.hasPermission("cmi.kit.进服礼包")) {
+            // 尝试使用CMI插件的命令处理器将玩家应用"进服礼包"
             try {
                 CMI CMI = Get_Plugin(CMI.class);
                 new kit().perform(CMI, Player, new String[]{"进服礼包"});
+                // 移除玩家的"cmi.kit.进服礼包"权限
+                Player.addAttachment(CMI,"cmi.kit.进服礼包", false);
             } catch (Exception e) {
             }
         }
