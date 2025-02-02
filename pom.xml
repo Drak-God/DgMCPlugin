@@ -37,13 +37,6 @@
         </dependency>
 
         <dependency>
-            <groupId>top.DrakGod</groupId>
-            <artifactId>JythonLib</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/libs/JythonLib-1.0.jar</systemPath>
-        </dependency>
-        <dependency>
             <groupId>top.leavesmc</groupId>
             <artifactId>leaves</artifactId>
             <version>1.19.2</version>

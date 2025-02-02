@@ -44,6 +44,8 @@ public class Main extends JavaPlugin implements Global {
         QQBotIP = "http://" + QQBot.getString("ip") + ":" + String.valueOf(QQBot.getInt("port"));
 
         Class_Commands = new Commands();
+        Class_Commands.Register_Commands();
+
         Class_Listeners = new Listeners();
         Class_IDBinds = new IDBinds();
         Class_QQBot = new QQBot();

@@ -18,7 +18,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public interface Global {
-
     public Server Server = Bukkit.getServer();
     public PluginManager Plugin_Manager = Server.getPluginManager();
     public Logger Server_Logger = Server.getLogger();

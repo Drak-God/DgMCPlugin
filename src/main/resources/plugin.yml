@@ -5,12 +5,12 @@ api-version: 1.19
 description: 这是一个专门为DgMC打造的插件
 authors: [Drakgod]
 website: https://dgmc.drakgod.top
-depend: [AuthMe,CMI,JythonLib]
+depend: [AuthMe,CMI]
 
 commands:
   dgmc:
     usage: /dgmc <子指令> [参数]
-    aliases: [dgmc]
+    aliases: []
     description: DgMC插件主指令
     permission: dgmc.commands.dgmc
   help:
@@ -19,6 +19,36 @@ commands:
     description: 查看帮助信息
     permission: dgmc.commands.help
   idbind:
+    usage: /idbind <玩家>
+    aliases: [bind]
+    description: 查看玩家绑定ID
+    permission: dgmc.commands.idbind
+  dgmc1:
+    usage: /dgmc <子指令> [参数]
+    aliases: []
+    description: DgMC插件主指令
+    permission: dgmc.commands.dgmc
+  help1:
+    usage: /help [页面]
+    aliases: [dghelp]
+    description: 查看帮助信息
+    permission: dgmc.commands.help
+  idbind1:
+    usage: /idbind <玩家>
+    aliases: [bind]
+    description: 查看玩家绑定ID
+    permission: dgmc.commands.idbind
+  dgmc2:
+    usage: /dgmc <子指令> [参数]
+    aliases: []
+    description: DgMC插件主指令
+    permission: dgmc.commands.dgmc
+  help2:
+    usage: /help [页面]
+    aliases: [dghelp]
+    description: 查看帮助信息
+    permission: dgmc.commands.help
+  idbind2:
     usage: /idbind <玩家>
     aliases: [bind]
     description: 查看玩家绑定ID
@@ -35,6 +65,7 @@ permissions:
     default: true
     children:
       dgmc.commands.dgmc: true
+      dgmc.commands.help: true
       dgmc.commands.idbind: true
   dgmc.commands.dgmc:
     description: 拥有DgMC插件的/dgmc命令权限
