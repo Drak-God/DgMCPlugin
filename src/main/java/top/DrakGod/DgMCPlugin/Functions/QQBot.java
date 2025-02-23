@@ -81,7 +81,7 @@ public class QQBot implements Global {
 
     public String Get_Download_Url() {
         String OS_Name = System.getProperty("os.name").toLowerCase();
-        String Arch = System.getProperty("os.Arch").toLowerCase();
+        String Arch = System.getProperty("os.arch").toLowerCase();
 
         if (OS_Name.contains("win")) {
             if (Arch.contains("amd64")) {
