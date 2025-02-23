@@ -21,14 +21,15 @@ public class Jython implements Global {
     }
 
     public void Init() {
-        Can_Use = false;
+        Can_Use = Check_Downloads();
         if (!Check_Downloads()) {
             boolean Success = Download();
             if (!Success) {
                 Module_Log("ERROR", "§2Jython", "§cJython功能无法使用!");
+                return;
             }
+            Can_Use = true;
         }
-        Can_Use = true;
     }
 
     public File Get_Jython_File() {

@@ -38,7 +38,7 @@ public class QQBot implements Global {
     }
 
     public void Init() {
-        Can_Use = false;
+        Can_Use = Check_Downloads();
         if (!Check_Downloads()) {
             boolean Success1 = Download();
             boolean Success2 = Install();
@@ -46,9 +46,10 @@ public class QQBot implements Global {
                 Module_Log("ERROR", "§bQQBot", "QQBot功能无法使用!");
                 return;
             }
+            Module_Log("INFO", "§bQQBot", "§6第一次请手动运行创建配置文件(选择3: 反向 Websocket 通信)");
             Can_Use = true;
-            Start();
         }
+        Start();
     }
 
     public File Get_QQBot_Folder() {
@@ -113,7 +114,7 @@ public class QQBot implements Global {
     }
 
     public boolean Check_Downloads() {
-        File QQBot_Flie = Get_QQBot_Folder();
+        File QQBot_Flie = Get_QQBot_File();
         if (QQBot_Flie.exists()) {
             return true;
         } else {
@@ -152,6 +153,7 @@ public class QQBot implements Global {
             }
 
             QQBot_Zip.close();
+            Module_Log("INFO", "§bQQBot_Install", "§a安装QQBot成功!");
             return true;
         } catch (Exception e) {
             return false;
@@ -175,13 +177,19 @@ public class QQBot implements Global {
             Module_Log("ERROR", "§bQQBot", "QQBot主py文件运行失败!");
             return;
         }
+        Module_Log("INFO", "§bQQBot", "§6主py文件已退出");
     }
 
     public void Start_QQBot() {
         String QQBot_File = Get_QQBot_File().toString();
         File QQBot_Folder = Get_QQBot_Folder();
 
-        ProcessBuilder Process_Builder = new ProcessBuilder(QQBot_File);
+        ProcessBuilder Process_Builder;
+        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+            Process_Builder = new ProcessBuilder("cmd", "/c", QQBot_File);
+        } else {
+            Process_Builder = new ProcessBuilder("sh", "-c", QQBot_File);
+        }
         Process_Builder.directory(QQBot_Folder);
 
         try {
@@ -196,7 +204,7 @@ public class QQBot implements Global {
                     break;
                 }
             }
-            Module_Log("INFO", "§bQQBot_Bot", "QQBot已退出");
+            Module_Log("INFO", "§bQQBot_Bot", "§6QQBot已退出");
         } catch (Exception e) {
             Module_Log("ERROR", "§bQQBot_Bot", "QQBot出现异常!");
             e.printStackTrace();
