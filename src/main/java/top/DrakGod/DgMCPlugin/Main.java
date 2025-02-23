@@ -6,24 +6,25 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import top.DrakGod.DgMCPlugin.Functions.*;
 import top.DrakGod.DgMCPlugin.Handlers.*;
+import top.DrakGod.DgMCPlugin.Util.DgMCCommand;
 
 public class Main extends JavaPlugin implements Global {
-    public Commands Class_Commands;
+    public HashMap<String, DgMCCommand> Commands = new HashMap<>();
+
     public Listeners Class_Listeners;
     public IDBinds Class_IDBinds;
     public QQBot Class_QQBot;
 
     public String Version;
-    public String QQBotIP;
+    public boolean Running;
 
     @Override
     public void onEnable() {
@@ -39,26 +40,26 @@ public class Main extends JavaPlugin implements Global {
             return;
         }
 
-        YamlConfiguration Config = Get_Config();
-        ConfigurationSection QQBot = Config.getConfigurationSection("QQBot");
-        QQBotIP = "http://" + QQBot.getString("ip") + ":" + String.valueOf(QQBot.getInt("port"));
-
-        Class_Commands = new Commands();
-        Class_Commands.Register_Commands();
-
+        DgMCCommand.Register_Commands();
         Class_Listeners = new Listeners();
-        Class_IDBinds = new IDBinds();
         Class_QQBot = new QQBot();
+        Class_IDBinds = new IDBinds();
 
         Plugin_Manager.registerEvents(Class_Listeners, this);
 
         Plugin_Log("INFO", "§1Dg§4MC§b专属插件§a已启用!");
+        Running = true;
     }
 
     @Override
     public void onDisable() {
         Class_IDBinds.Lookup_QQBot.cancel();
         Plugin_Log("INFO", "§1Dg§4MC§b专属插件§4已禁用!");
+        Running = false;
+    }
+
+    public boolean Get_Running() {
+        return Running;
     }
 
     public File Get_File() {

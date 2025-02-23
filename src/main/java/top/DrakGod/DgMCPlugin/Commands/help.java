@@ -4,32 +4,45 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.IntStream;
 
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TextComponent;
 import top.DrakGod.DgMCPlugin.Main;
-import top.DrakGod.DgMCPlugin.Handlers.Commands;
+import top.DrakGod.DgMCPlugin.Util.DgMCCommand;
 
 public class help implements DgMCCommand {
-    public Commands Class_Commands;
-    public HashMap<String, Command> Commands;
+    public HashMap<String, DgMCCommand> Commands;
+    public HashMap<String, DgMCCommand> All_Commands;
     public List<List<String>> Help_Pages;
 
-    public DgMCCommand Init() {
-        Main Main = Get_Main();
-        Class_Commands = Main.Class_Commands;
-        Commands = Class_Commands.Commands;
-        return this;
+    @Override
+    public void Init() {
+        Commands = Get_Main().Commands;
+        All_Commands = ((dgmc) Commands.get("dgmc")).All_Commands;
     }
 
+    @Override
     public String Get_Command_Name() {
         return "help";
     }
 
+    @Override
+    public List<String> On_TabComplete(Main Main, CommandSender Sender, String Label, String[] Args) {
+        if (Args.length == 1) {
+            Reload_Help_Pages(Sender);
+            IntStream Page_Numbers = IntStream.rangeClosed(1, Help_Pages.size());
+            return Page_Numbers
+                    .mapToObj(String::valueOf)
+                    .toList();
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
     public boolean On_Command(Main Main, CommandSender Sender, String Label, String[] Args) {
         Reload_Help_Pages(Sender);
 
@@ -53,9 +66,13 @@ public class help implements DgMCCommand {
         Sender.sendMessage("§e------ ======= §1Dg§4MC§bPlugin§6帮助 §e======= ------");
         Sender.sendMessage("§e====== ------ §6<>为必填 []为选填 §e------ ======");
         for (String Name : Help_Pages.get(Page_Number - 1)) {
-            Command HelpCommand = Commands.get(Name);
+            DgMCCommand HelpCommand = All_Commands.get(Name);
             TextComponent Msg = new TextComponent(
-                    "§6" + HelpCommand.getUsage() + " §e-§6 " + HelpCommand.getDescription());
+                    "§6" + HelpCommand.Get_Usage() + " §e-§6 " + HelpCommand.Get_Description());
+            if (!Commands.containsKey(Name)) {
+                Name = "dgmc " + Name;
+            }
+
             Msg.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/" + Name));
             Sender.spigot().sendMessage(Msg);
         }
@@ -87,12 +104,10 @@ public class help implements DgMCCommand {
     }
 
     public void Reload_Help_Pages(CommandSender Sender) {
-        HashMap<String, String> Command_Permissions = Class_Commands.Command_Permissions;
-
-        HashMap<String, Command> New_Commands = new HashMap<>();
-        for (String Name : Commands.keySet()) {
-            Command Command = Commands.get(Name);
-            if (Sender.hasPermission(Command_Permissions.get(Name))) {
+        HashMap<String, DgMCCommand> New_Commands = new HashMap<>();
+        for (String Name : All_Commands.keySet()) {
+            DgMCCommand Command = All_Commands.get(Name);
+            if (Sender.hasPermission(Command.Get_Permission())) {
                 New_Commands.put(Name, Command);
             }
         }

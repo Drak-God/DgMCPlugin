@@ -17,7 +17,7 @@ import top.DrakGod.DgMCPlugin.Main;
 public class IDBinds implements Global {
     public YamlConfiguration IDBinds_Yaml;
     public HashMap<String, String> IDBinds_Data;
-    public Main CMain;
+    public QQBot QQBot;
     public String KickMsg;
     public boolean QQBot_Running = false;
 
@@ -25,14 +25,15 @@ public class IDBinds implements Global {
         @Override
         public void run() {
             if (!QQBot_Running) {
-                QQBot_Running = (HttpConnection.Get(CMain.QQBotIP + "/exec(bdip)") != null);
+                QQBot_Running = (HttpConnection.Get(QQBot.QQBotIP + "/Bind_ID_Password") != null);
             }
         }
     };
 
     public IDBinds() {
-        CMain = Get_Main();
-        Lookup_QQBot.runTaskTimerAsynchronously(CMain, 0, 20);
+        Main Main = Get_Main();
+        QQBot = Main.Class_QQBot;
+        Lookup_QQBot.runTaskTimerAsynchronously(Main, 0, 20);
         Load_IDBinds();
         KickMsg = Get_Config().getString("BindKickMsg");
     }
@@ -75,7 +76,10 @@ public class IDBinds implements Global {
     public final String Add_IDBind(PlayerLoginEvent Event, Player Player) {
         String Out = null;
         if (QQBot_Running) {
-            Out = HttpConnection.Get(CMain.QQBotIP + "/exec(new_bc(\'" + Player.getName() + "\'))");
+            HashMap<String, String> Data = new HashMap<>();
+            Data.put("Player", Player.getName());
+
+            Out = HttpConnection.Post(QQBot.QQBotIP + "/New_Bind_Code", Data);
             if (Out != null) {
                 QQBot_Running = false;
             }
@@ -94,7 +98,7 @@ public class IDBinds implements Global {
             return null;
         }
 
-        String Out = HttpConnection.Get(CMain.QQBotIP + "/exec(get_bind())");
+        String Out = HttpConnection.Get(QQBot.QQBotIP + "/Get_Bind");
         if (Out == null) {
             QQBot_Running = false;
             return null;

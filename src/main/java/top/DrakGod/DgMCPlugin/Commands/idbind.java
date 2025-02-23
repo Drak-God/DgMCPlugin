@@ -1,31 +1,38 @@
 package top.DrakGod.DgMCPlugin.Commands;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
 
-import org.bukkit.command.Command;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import top.DrakGod.DgMCPlugin.Main;
-import top.DrakGod.DgMCPlugin.Handlers.Commands;
+import top.DrakGod.DgMCPlugin.Util.DgMCCommand;
 
 @SuppressWarnings("deprecation")
 public class idbind implements DgMCCommand {
-    public Commands Class_Commands;
-    public HashMap<String, Command> Commands;
-
-    public DgMCCommand Init() {
-        Main Main = Get_Main();
-        Class_Commands = Main.Class_Commands;
-        Commands = Class_Commands.Commands;
-
-        return this;
+    @Override
+    public void Init() {
     }
 
+    @Override
     public String Get_Command_Name() {
         return "idbind";
     }
 
+    @Override
+    public List<String> On_TabComplete(Main Main, CommandSender Sender, String Label, String[] Args) {
+        if (Args.length == 1) {
+            Stream<OfflinePlayer> Stream = Arrays.stream(Server.getOfflinePlayers());
+            return Stream.map(OfflinePlayer::getName).toList();
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
     public boolean On_Command(Main Main, CommandSender Sender, String Label, String[] Args) {
         String Name;
         switch (Args.length) {

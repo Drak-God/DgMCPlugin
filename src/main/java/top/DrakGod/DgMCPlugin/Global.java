@@ -24,12 +24,22 @@ public interface Global {
     public Logger Plugin_Logger = Bukkit.getLogger();
     public CommandSender Console = Server.getConsoleSender();
 
+    public String Plugin_Name = "§1Dg§4MC§bPlugin";
+
     public default <T extends JavaPlugin> T Get_Plugin(@Nonnull Class<T> clazz) {
         return Main.getPlugin(clazz);
     }
 
     public default Main Get_Main() {
         return Get_Plugin(Main.class);
+    }
+
+    public default boolean Get_Running() {
+        return Get_Main().Get_Running();
+    }
+
+    public static boolean Get_Running_Static() {
+        return Main.getPlugin(Main.class).Get_Running(); 
     }
 
     public default File Get_Data_Folder() {
@@ -61,7 +71,29 @@ public interface Global {
         } else if (Mode.equalsIgnoreCase("ERROR")) {
             Msg = "§c" + Msg;
         }
-        Console.sendMessage("§6[§1Dg§4MC§bPlugin§6] " + Msg);
+        Console.sendMessage("§6[" + Plugin_Name + "§6] " + Msg);
+    }
+
+    public default void Module_Log(String Mode, String Module_Name, String Msg) {
+        if (Mode.equalsIgnoreCase("INFO")) {
+            Msg = "§f" + Msg;
+        } else if (Mode.equalsIgnoreCase("WARN")) {
+            Msg = "§e" + Msg;
+        } else if (Mode.equalsIgnoreCase("ERROR")) {
+            Msg = "§c" + Msg;
+        }
+        Console.sendMessage("§6[" + Plugin_Name + "§6] §6[§f" + Module_Name + "§6] " + Msg);
+    }
+
+    public static void Module_Log_Static(String Mode, String Module_Name, String Msg) {
+        if (Mode.equalsIgnoreCase("INFO")) {
+            Msg = "§f" + Msg;
+        } else if (Mode.equalsIgnoreCase("WARN")) {
+            Msg = "§e" + Msg;
+        } else if (Mode.equalsIgnoreCase("ERROR")) {
+            Msg = "§c" + Msg;
+        }
+        Console.sendMessage("§6[" + Plugin_Name + "§6] §6[§f" + Module_Name + "§6] " + Msg);
     }
 
     public default YamlConfiguration Get_Data(String File_Name) {

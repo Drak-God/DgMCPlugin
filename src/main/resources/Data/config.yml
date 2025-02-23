@@ -2,7 +2,14 @@
 BindKickMsg: |-
   §a你的§e验证码 : §b<code> §a绑定后可§e加入游戏
   §7请看公告§a注册ID,§c然后§7在QQ群907858442内发送:§a绑定 <code>
-#QQ机器人IP配置
+
+#QQ机器人配置
 QQBot:
-  ip: server.tonyxx.cn
-  port: 64827
+  #此IP填写机器人API的IP
+  ip: 127.0.0.1 #IP地址
+  port: 64827 #IP端口
+  #第一次运行会生成机器人配置
+  #其余配置请在机器人配置文件填写
+
+  #库存放在插件目录\Libs下
+  pyfile: "" #主py文件路径

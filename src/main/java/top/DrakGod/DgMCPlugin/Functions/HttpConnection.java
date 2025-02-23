@@ -1,13 +1,18 @@
 package top.DrakGod.DgMCPlugin.Functions;
 
+import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.FileOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Scanner;
+
+import top.DrakGod.DgMCPlugin.Global;
 
 public class HttpConnection {
     public static String Get(String Url) {
@@ -63,5 +68,54 @@ public class HttpConnection {
         } catch (IOException e) {
         }
         return Response;
+    }
+
+    public static File Download(String Url, File File) {
+        try {
+            URL URL = new URL(Url);
+            HttpURLConnection Connection = (HttpURLConnection) URL.openConnection();
+            Connection.setRequestMethod("GET");
+
+            int ResponseCode = Connection.getResponseCode();
+            if (ResponseCode == HttpURLConnection.HTTP_OK) {
+                int FileSize = Connection.getContentLength();
+                BufferedInputStream InputStream = new BufferedInputStream(Connection.getInputStream());
+                FileOutputStream OutputStream = new FileOutputStream(File);
+
+                byte[] DataBuffer = new byte[1024];
+                int BytesRead;
+                int TotalBytesRead = 0;
+                boolean Last_Out = false;
+                while ((BytesRead = InputStream.read(DataBuffer, 0, 1024)) != -1) {
+                    OutputStream.write(DataBuffer, 0, BytesRead);
+                    TotalBytesRead += BytesRead;
+
+                    int progress = (int) ((TotalBytesRead * 100.0) / FileSize);
+                    if (progress % 25 == 0 && !Last_Out) {
+                        Global.Module_Log_Static("INFO", "§2Download", "§6正在下载文件: " + progress + "%");
+                        Last_Out = true;
+                    } else if (progress % 25 != 0) {
+                        Last_Out = false;
+                    }
+
+                    if (!Global.Get_Running_Static()) {
+                        InputStream.close();
+                        OutputStream.close();
+                        File.delete();
+
+                        Global.Module_Log_Static("ERROR", "§2Download", "文件下载被取消!");
+                        return null;
+                    }
+                }
+                InputStream.close();
+                OutputStream.close();
+
+                Global.Module_Log_Static("INFO", "§2Download", "§a文件下载成功!");
+                return File;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
