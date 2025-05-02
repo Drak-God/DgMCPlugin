@@ -25,7 +25,7 @@ public class IDBinds implements Global {
         @Override
         public void run() {
             if (!QQBot_Running) {
-                QQBot_Running = (HttpConnection.Get(QQBot.QQBotIP + "/Bind_ID_Password") != null);
+                QQBot_Running = (HttpConnection.Get(QQBot.QQBotIP + "/Get_IDBinds") != null);
             }
         }
     };
@@ -80,7 +80,7 @@ public class IDBinds implements Global {
             Data.put("Player", Player.getName());
 
             Out = HttpConnection.Post(QQBot.QQBotIP + "/New_Bind_Code", Data);
-            if (Out != null) {
+            if (Out == null) {
                 QQBot_Running = false;
             }
         }
@@ -98,7 +98,7 @@ public class IDBinds implements Global {
             return null;
         }
 
-        String Out = HttpConnection.Get(QQBot.QQBotIP + "/Get_Bind");
+        String Out = HttpConnection.Get(QQBot.QQBotIP + "/Get_IDBinds");
         if (Out == null) {
             QQBot_Running = false;
             return null;

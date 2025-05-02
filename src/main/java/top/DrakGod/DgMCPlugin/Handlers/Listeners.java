@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
@@ -20,6 +22,7 @@ import top.DrakGod.DgMCPlugin.Global;
 public class Listeners implements Listener, Global {
     public HashMap<UUID, String> TempSend = new HashMap<>();
 
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerLogin(PlayerLoginEvent Event) {
         String Out = Get_Main().Class_IDBinds.Get_Binded(Event);
         if (Out != null) {
@@ -27,6 +30,7 @@ public class Listeners implements Listener, Global {
         }
     }
 
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerJoin(PlayerJoinEvent Event) {
         UUID Player_UUID = Event.getPlayer().getUniqueId();
         if (TempSend.containsKey(Player_UUID)) {
@@ -35,6 +39,7 @@ public class Listeners implements Listener, Global {
         }
     }
 
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerPortal(PlayerPortalEvent Event) {
         Player Player = Event.getPlayer();
         Location Location = Player.getLocation();
@@ -68,6 +73,7 @@ public class Listeners implements Listener, Global {
         }
     }
 
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerRegister(RegisterEvent Event) {
         Player Player = Event.getPlayer();
         if (Player.hasPermission("cmi.kit.进服礼包")) {

@@ -28,6 +28,7 @@ public class Main extends JavaPlugin implements Global {
 
     @Override
     public void onEnable() {
+        Running = true;
         Version = getDescription().getVersion();
         Server_Log("INFO", "");
         Server_Log("INFO", "§1┏━━  ┏━━┓ §4┏┓┏┓ ┏━━┓   §fDgMCPlugin");
@@ -46,9 +47,9 @@ public class Main extends JavaPlugin implements Global {
         Class_IDBinds = new IDBinds();
 
         Plugin_Manager.registerEvents(Class_Listeners, this);
+        Server_Log("INFO", "registerEvents");
 
         Plugin_Log("INFO", "§1Dg§4MC§b专属插件§a已启用!");
-        Running = true;
     }
 
     @Override
