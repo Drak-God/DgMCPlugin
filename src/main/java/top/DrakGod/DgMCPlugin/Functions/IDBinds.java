@@ -67,7 +67,7 @@ public class IDBinds implements Global {
         Player Player = Event.getPlayer();
         Get_IDBinds();
         if (IDBinds_Data.containsKey(Player.getName())) {
-            return "§a你已绑定ID: " + IDBinds_Data.get(Player.getName());
+            return "§a你已绑定DG账号ID: " + IDBinds_Data.get(Player.getName());
         } else {
             return Add_IDBind(Event, Player);
         }
@@ -109,7 +109,7 @@ public class IDBinds implements Global {
         HashMap<String, String> IDBinds_Get = new Gson().fromJson(Out, Type.getType());
         IDBinds_Data.clear();
         for (HashMap.Entry<String, String> entry : IDBinds_Get.entrySet()) {
-            if (entry.getValue().isEmpty()) {
+            if (entry.getValue() == null || entry.getValue().isEmpty()) {
                 continue;
             }
             IDBinds_Data.put(entry.getValue(), entry.getKey());

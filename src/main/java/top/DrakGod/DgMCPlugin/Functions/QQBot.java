@@ -236,14 +236,7 @@ public class QQBot implements Global {
             while ((Line = Reader.readLine()) != null) {
                 Module_Log("INFO", "§bQQBot_BotEXE", Line);
             }
-
-            BufferedReader ErrorReader = new BufferedReader(new InputStreamReader(Process.getErrorStream(), "utf-8"));
-            while ((Line = ErrorReader.readLine()) != null) {
-                Module_Log("ERROR", "§bQQBot_BotEXE", Line);
-            }
             Reader.close();
-            Integer OUT = Process.waitFor();
-            Server_Log("INFO", OUT.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -303,14 +296,7 @@ public class QQBot implements Global {
 
                 Module_Log(Mode, "§bQQBot_Bot", Log_Content);
             }
-
-            BufferedReader ErrorReader = new BufferedReader(new InputStreamReader(Process.getErrorStream(), "utf-8"));
-            while ((Line = ErrorReader.readLine()) != null) {
-                Module_Log("ERROR", "§bQQBot_BotEXE", Line);
-            }
             Reader.close();
-            Integer OUT = Process.waitFor();
-            Server_Log("INFO", OUT.toString());
         } catch (Exception e) {
         }
     }

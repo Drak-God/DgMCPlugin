@@ -7,10 +7,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Scanner;
+
+import com.google.gson.Gson;
 
 import top.DrakGod.DgMCPlugin.Global;
 
@@ -43,18 +44,9 @@ public class HttpConnection {
             Connection.setDoOutput(true);
             Connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-            StringBuilder PostData = new StringBuilder();
-            for (Map.Entry<String, String> entry : Data.entrySet()) {
-                if (PostData.length() != 0) {
-                    PostData.append('&');
-                }
-                PostData.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-                PostData.append('=');
-                PostData.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
-            }
-
+            String PostData = new Gson().toJson(Data);
             try (OutputStream OutputStream = Connection.getOutputStream()) {
-                byte[] Input = PostData.toString().getBytes(StandardCharsets.UTF_8);
+                byte[] Input = PostData.getBytes(StandardCharsets.UTF_8);
                 OutputStream.write(Input, 0, Input.length);
             }
 

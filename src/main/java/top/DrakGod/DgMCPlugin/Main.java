@@ -47,7 +47,6 @@ public class Main extends JavaPlugin implements Global {
         Class_IDBinds = new IDBinds();
 
         Plugin_Manager.registerEvents(Class_Listeners, this);
-        Server_Log("INFO", "registerEvents");
 
         Plugin_Log("INFO", "§1Dg§4MC§b专属插件§a已启用!");
     }
