@@ -55,13 +55,13 @@ public class Listeners implements Listener, Global {
 
         String New_World_Name;
         if (-44 <= X && X <= -42 && 8 <= Z && Z <= 10) {
-            New_World_Name = "World";
+            New_World_Name = "world";
         } else if (-4 <= X && X <= -2 && 48 <= Z && Z <= 50) {
             New_World_Name = "resworld";
         } else if (36 <= X && X <= 38 && 8 <= Z && Z <= 10) {
-            New_World_Name = "DIM-1";
+            New_World_Name = "world_nether";
         } else if (-4 <= X && X <= -2 && -32 <= Z && Z <= -30) {
-            New_World_Name = "DIM1";
+            New_World_Name = "world_the_end";
         } else {
             return;
         }
