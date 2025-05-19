@@ -1,10 +1,14 @@
 package top.DrakGod.DgMCPlugin.Functions;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import com.google.common.reflect.TypeToken;
@@ -20,6 +24,7 @@ public class IDBinds implements Global {
     public QQBot QQBot;
     public String KickMsg;
     public boolean QQBot_Running = false;
+    public HashMap<UUID, String> TempSend = new HashMap<>();
 
     public BukkitRunnable Lookup_QQBot = new BukkitRunnable() {
         @Override
@@ -30,12 +35,31 @@ public class IDBinds implements Global {
         }
     };
 
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onPlayerLogin(PlayerLoginEvent Event) {
+        String Out = Get_Main().Class_IDBinds.Get_Binded(Event);
+        if (Out != null) {
+            TempSend.put(Event.getPlayer().getUniqueId(), Out);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onPlayerJoin(PlayerJoinEvent Event) {
+        UUID Player_UUID = Event.getPlayer().getUniqueId();
+        if (TempSend.containsKey(Player_UUID)) {
+            Event.getPlayer().sendMessage(TempSend.get(Player_UUID));
+            TempSend.remove(Player_UUID);
+        }
+    }
+
     public IDBinds() {
         Main Main = Get_Main();
         QQBot = Main.Class_QQBot;
         Lookup_QQBot.runTaskTimerAsynchronously(Main, 0, 20);
         Load_IDBinds();
         KickMsg = Get_Config().getString("BindKickMsg");
+        RegisterEvent(this::onPlayerJoin, PlayerJoinEvent.class);
+        RegisterEvent(this::onPlayerLogin, PlayerLoginEvent.class);
     }
 
     public final void Load_IDBinds() {

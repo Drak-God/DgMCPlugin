@@ -3,9 +3,12 @@ package top.DrakGod.DgMCPlugin;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.logging.Logger;
 
 import javax.annotation.Nonnull;
@@ -14,8 +17,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.event.Event;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.EventExecutor;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import jdk.jfr.Event;
 
 public interface Global {
     public Server Server = Bukkit.getServer();
@@ -128,5 +137,18 @@ public interface Global {
         } catch (IOException e) {
             Plugin_Log("ERROR", "无法保存数据文件: " + File_Name + " " + e.toString());
         }
+    }
+
+    public default <T extends Event> void RegisterEvent(Consumer<T> Consumer, Class<T> Event_Class) {
+        EventExecutor EventMethod = new EventExecutor() {
+            public void execute(Listener Listener, Event Event) {
+                if (Event_Class.isInstance(Event)) {
+                    T Typed_Event = Event_Class.cast(Event);
+                    Consumer.accept(Typed_Event);
+                }
+                
+            }
+        };
+        Plugin_Manager.registerEvent(Event_Class, Get_Main().Class_Listeners, EventPriority.NORMAL, EventMethod, Get_Main());
     }
 }

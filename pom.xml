@@ -27,6 +27,11 @@
                 <updatePolicy>always</updatePolicy>
             </snapshots>
         </repository>
+        <repository>
+            <id>leavesmc-repository</id>
+            <name>LeavesMC Repository</name>
+            <url>https://repo.leavesmc.org/</url>
+        </repository>
     </repositories>
 
     <dependencies>
